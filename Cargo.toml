@@ -1,0 +1,17 @@
+[package]
+name = "dash-lang"
+version = "0.1.0"
+edition = "2021"
+authors = ["Pjdur"]
+description = "A simple interpreted language"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/Pjdur/dash-lang"
+
+[[bin]]
+name = "dash"
+path = "src/main.rs"
+
+[dependencies]
+pest = "2.7"
+pest_derive = "2.7"

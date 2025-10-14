@@ -1,0 +1,6 @@
+fn square(n) {
+  return n * n
+}
+
+let result = square(6)
+print(result)

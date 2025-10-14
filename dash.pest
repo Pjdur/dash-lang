@@ -1,0 +1,52 @@
+WHITESPACE     = _{ " " | "\t" | "\n" }
+
+program        =  { SOI ~ statement* ~ EOI }
+
+statement      =  {
+    print_stmt
+  | let_stmt
+  | if_stmt
+  | while_stmt
+  | break_stmt
+  | continue_stmt
+  | return_stmt
+  | fn_stmt
+  | call_stmt
+}
+
+print_stmt     =  { "print" ~ "(" ~ expr ~ ")" }
+let_stmt       =  { "let" ~ ident ~ "=" ~ expr }
+if_stmt        =  { "if" ~ expr ~ block ~ ("else" ~ block)? }
+while_stmt     =  { "while" ~ expr ~ block }
+break_stmt     =  { "break" }
+continue_stmt  =  { "continue" }
+return_stmt    =  { "return" ~ expr }
+fn_stmt        =  { "fn" ~ ident ~ "(" ~ param_list? ~ ")" ~ block }
+call_stmt      =  { call_expr }
+
+param_list     =  { ident ~ ("," ~ ident)* }
+arg_list       =  { expr ~ ("," ~ expr)* }
+
+block          =  { "{" ~ statement* ~ "}" }
+
+expr           =  { term ~ (add_op ~ term)* }
+term           =  { factor ~ (mul_op ~ factor)* }
+factor         =  { comparison }
+comparison     =  { primary ~ (comparison_op ~ primary)? }
+primary        =  {
+    number
+  | string
+  | call_expr
+  | ident
+  | "(" ~ expr ~ ")"
+}
+
+call_expr      =  { ident ~ "(" ~ arg_list? ~ ")" }
+
+ident          = @{ ASCII_ALPHANUMERIC+ }
+number         = @{ "-"? ~ ASCII_DIGIT+ }
+string         = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+
+add_op         =  { "+" | "-" }
+mul_op         =  { "*" | "/" }
+comparison_op  =  { ">" | "<" | ">=" | "<=" | "==" | "!=" }

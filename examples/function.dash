@@ -1,0 +1,6 @@
+fn greet(name) {
+  print("Hello")
+  print(name)
+}
+
+greet("Dash")
