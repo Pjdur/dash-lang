@@ -21,7 +21,11 @@ fn main() {
         // Run from file
         let filename = &args[1];
         match fs::read_to_string(filename) {
-            Ok(source) => run(&source),
+            Ok(mut source) => {
+                // Convert CRLF (\r\n) to LF (\n)
+                source = source.replace("\r\n", "\n");
+                run(&source)
+            },
             Err(e) => eprintln!("Error reading file '{}': {}", filename, e),
         }
     } else {
