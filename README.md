@@ -10,7 +10,7 @@ Dash is a lightweight interpreted programming language written in Rust. It suppo
 - ✅ Control flow: `if`, `while`, `break`, `continue`
 - ✅ Functions with parameters and return values
 - ✅ Print statements
-- ✅ CLI support for running `.lang` files
+- ✅ CLI support for running `.dash` files
 - ✅ Custom grammar with Pest
 
 ---
@@ -20,7 +20,7 @@ Dash is a lightweight interpreted programming language written in Rust. It suppo
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/Pjdur/dash.git
+git clone https://github.com/Pjdur/dash-lang.git
 cd dash
 ```
 
@@ -33,14 +33,14 @@ cargo run
 This runs a default hardcoded script. To run a file:
 
 ```bash
-cargo run -- examples/hello.lang
+cargo run -- examples/hello.dash
 ```
 
 Or build and run:
 
 ```bash
 cargo build --release
-./target/release/Dash examples/hello.lang
+./target/release/Dash examples/hello.dash
 ```
 
 ---
@@ -113,7 +113,7 @@ while x < 10 {
 
 ## 🧪 Examples
 
-Create a file like `examples/hello.lang`:
+Create a file like `examples/hello.dash`:
 
 ```lang
 fn greet(name) {
@@ -127,7 +127,7 @@ greet("World")
 Then run:
 
 ```bash
-cargo run -- examples/hello.lang
+cargo run -- examples/hello.dash
 ```
 
 ---
