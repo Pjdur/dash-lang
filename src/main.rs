@@ -1,7 +1,4 @@
-mod parser;
-mod ast;
-mod eval;
-use parser::run;
+use dash_lang::run;
 use pest_derive::Parser;
 use std::env;
 use std::fs;
@@ -9,7 +6,7 @@ use std::fs;
 /// Pest parser definition using the grammar in `dash.pest`.
 #[derive(Parser)]
 #[grammar = "dash.pest"]
-pub struct MyParser;
+pub struct DashParser;
 
 /// Entry point for the CLI interpreter.
 /// If a filename is provided, it runs the script from that file.

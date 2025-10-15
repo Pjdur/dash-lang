@@ -12,7 +12,7 @@ use crate::ast::{Expr, Stmt, Context, LoopControl, Op};
 ///
 /// # Returns
 /// A string representing the result of the evaluated expression.
-pub(crate) fn eval_expr(expr: &Expr, ctx: &Context) -> String {
+pub fn eval_expr(expr: &Expr, ctx: &Context) -> String {
     match expr {
         Expr::Int(i) => i.to_string(),
         Expr::Str(s) => s.clone(),
@@ -83,7 +83,7 @@ pub(crate) fn eval_expr(expr: &Expr, ctx: &Context) -> String {
 ///
 /// # Returns
 /// A `LoopControl` value indicating control flow status (e.g., break, continue, return).
-pub(crate) fn exec_stmt(stmt: &Stmt, ctx: &mut Context) -> LoopControl {
+pub fn exec_stmt(stmt: &Stmt, ctx: &mut Context) -> LoopControl {
     match stmt {
         Stmt::Print(expr) => {
             println!("{}", eval_expr(expr, ctx));
@@ -151,5 +151,28 @@ pub(crate) fn exec_stmt(stmt: &Stmt, ctx: &mut Context) -> LoopControl {
             let value = eval_expr(expr, ctx);
             LoopControl::Return(value)
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::ast::{Expr, Op, Context};
+
+    #[test]
+    fn test_addition_expr() {
+        let expr = Expr::Binary(Box::new(Expr::Int(2)), Op::Add, Box::new(Expr::Int(3)));
+        let ctx = Context::default();
+        let result = eval_expr(&expr, &ctx);
+        assert_eq!(result, "5");
+    }
+
+    #[test]
+    fn test_variable_lookup() {
+        let mut ctx = Context::default();
+        ctx.variables.insert("x".to_string(), "42".to_string());
+        let expr = Expr::Var("x".to_string());
+        let result = eval_expr(&expr, &ctx);
+        assert_eq!(result, "42");
     }
 }

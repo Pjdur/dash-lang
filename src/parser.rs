@@ -14,7 +14,7 @@ pub struct DashParser;
 ///
 /// # Arguments
 /// * `source` - A string slice containing the source code to run.
-pub(crate) fn run(source: &str) {
+pub fn run(source: &str) {
     match DashParser::parse(Rule::program, source) {
         Ok(mut pairs) => {
             let pair = pairs.next().unwrap();
